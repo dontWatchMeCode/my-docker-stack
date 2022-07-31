@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+
+  n8n:
+    image: n8nio/n8n:latest
+    restart: always
+    container_name: n8n
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER
+      - N8N_BASIC_AUTH_PASSWORD
+    ports:
+      - 127.0.0.1:2999:5678
+    volumes:
+      - ./n8n:/home/node/.n8n
+    links:
+      - "mysql:database"
+    depends_on:
+      - mysql
+
+  appsmith:
+    image: appsmith/appsmith-ce:latest
+    restart: always
+    container_name: appsmith
+    ports:
+      - 127.0.0.1:2998:80
+    volumes:
+      - ./appsmith:/appsmith-stacks
+    links:
+      - "mysql:database"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASS}
