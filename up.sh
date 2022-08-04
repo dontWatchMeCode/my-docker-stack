@@ -4,7 +4,8 @@ git fetch
 
 mkdir -p ./dCompose/automation/static/public &&
     cd ./dCompose/automation/static/public &&
-    ls | xargs -I{} git -C {} pull
+    ls | xargs -I{} git -C {} pull &&
+    cd ../../../../
 
 check=$(git status | grep -c "Your branch is up to date with")
 
