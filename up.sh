@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+git fetch
+
 mkdir -p ./dCompose/automation/static/public &&
     cd ./dCompose/automation/static/public &&
     ls | xargs -I{} git -C {} pull
@@ -14,8 +16,7 @@ if [ "$check" = 1 ]; then
     echo "nothing to update" && exit
 fi
 
-git fetch &&
-    git stash &&
+git stash &&
     git pull
 
 cd ./dRun &&
