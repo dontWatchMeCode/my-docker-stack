@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+mkdir -p ./dCompose/automation/static/public &&
+    cd ./dCompose/automation/static/public &&
+    ls | xargs -I{} git -C {} pull
+
 check=$(git status | grep -c "Your branch is up to date with")
 
 if [ "$1" = "-f" ]; then
