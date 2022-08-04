@@ -2,7 +2,9 @@
 
 check=$(git status | grep -c "Your branch is up to date with")
 
-#check=$(git fetch && git stash && git pull | grep -c "Already up to date.")
+if [ "$1" = "-f" ]; then
+    echo "force update" && check=999
+fi
 
 if [ "$check" = 1 ]; then
     echo "nothing to update" && exit
