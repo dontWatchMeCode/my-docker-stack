@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-check=$(git pull | grep -c "Already up to date.")
+check=$(git stash && git pull | grep -c "Already up to date.")
 
 if [ "$check" = 1 ];
 then
