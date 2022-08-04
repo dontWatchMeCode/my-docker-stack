@@ -1,11 +1,16 @@
 #!/usr/bin/bash
 
-check=$(git stash && git pull | grep -c "Already up to date.")
+check=$(git status | grep -c "Your branch is up to date with")
 
-if [ "$check" = 1 ];
-then
+#check=$(git fetch && git stash && git pull | grep -c "Already up to date.")
+
+if [ "$check" = 1 ]; then
     echo "nothing to update" && exit
 fi
+
+git fetch &&
+    git stash &&
+    git pull
 
 cd ./dRun &&
     ./kuma.sh &&
