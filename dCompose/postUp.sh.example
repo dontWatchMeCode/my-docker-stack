@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+# script that runs after docker-compose up is done
+# for updating files / stopping containers / etc
+# needs to be copied to "./postUp.sh"
+
+echo "post dCompose"

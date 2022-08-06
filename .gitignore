@@ -15,3 +15,4 @@ dCompose/automation/db
 dCompose/automation/n8n
 dCompose/automation/.env
 dCompose/static/public/*
+dCompose/postUp.sh

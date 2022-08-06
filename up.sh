@@ -27,4 +27,5 @@ cd ./dRun &&
 
 cd ../dCompose &&
     ./upAll.sh &&
+    [[ -f /postUp.sh ]] && ./postUp.sh &&
     echo "(!!) dCompose updated"
