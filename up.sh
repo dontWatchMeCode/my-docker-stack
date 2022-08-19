@@ -3,6 +3,7 @@
 git fetch
 
 check=$(git status | grep -c "Your branch is up to date with")
+gitexit=0
 
 function help() {
     echo "-ci"
@@ -22,6 +23,7 @@ function help() {
 function pullRepo() {
     if [ "$check" = 1 ]; then
         echo "no git changes"
+        [ "$gitexit" = 1 ] && exit
     else
         echo "stash and pull"
         git stash &&
@@ -37,6 +39,8 @@ function pullStatic() {
 }
 
 function ci() {
+    gitexit=1
+
     pullRepo
     pullStatic
 
@@ -49,6 +53,8 @@ function ci() {
 }
 
 function up() {
+    gitexit=0
+
     pullRepo
     pullStatic
 
@@ -65,18 +71,12 @@ function up() {
     exit
 }
 
-if [ "$1" = "" ] || [ "$arg" = "-h" ]; then
-    help
-fi
-
 for arg in "$@"; do
     if [ "$arg" = "-ci" ]; then
         echo "ci active" && ci
-    fi
-    if [ "$arg" = "-up" ]; then
+    elif [ "$arg" = "-up" ]; then
         echo "up active" && up
     fi
-    if [ "$arg" = " " ] || [ "$arg" = "-h" ]; then
-        help
-    fi
 done
+
+help
